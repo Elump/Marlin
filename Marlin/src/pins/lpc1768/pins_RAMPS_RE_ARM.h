@@ -73,41 +73,46 @@
 #define X_STEP_PIN                         P2_01  // (54)
 #define X_DIR_PIN                          P0_11  // (55)
 #define X_ENABLE_PIN                       P0_10  // (38)
+
+///added needed CS Pins
+#define X_CS_PIN         P0_26   ///  (63) E1_CS_PIN
+#define Y_CS_PIN         P1_17   /// (19) Z_MAX_PIN
+
 #ifndef X_CS_PIN
-  #define X_CS_PIN                         P1_01  // ETH
+  ///#define X_CS_PIN                         P1_01  // ETH
 #endif
 
 #define Y_STEP_PIN                         P2_02  // (60)
 #define Y_DIR_PIN                          P0_20  // (61)
 #define Y_ENABLE_PIN                       P0_19  // (56)
 #ifndef Y_CS_PIN
-  #define Y_CS_PIN                         P1_04  // ETH
+  ///#define Y_CS_PIN                         P1_04  // ETH
 #endif
 
 #define Z_STEP_PIN                         P2_03  // (46)
 #define Z_DIR_PIN                          P0_22  // (48)
 #define Z_ENABLE_PIN                       P0_21  // (62)
 #ifndef Z_CS_PIN
-  #define Z_CS_PIN                         P1_10  // ETH
+  ///#define Z_CS_PIN                         P1_10  // ETH
 #endif
 
 #define E0_STEP_PIN                        P2_00  // (26)
 #define E0_DIR_PIN                         P0_05  // (28)
 #define E0_ENABLE_PIN                      P0_04  // (24)
 #ifndef E0_CS_PIN
-  #define E0_CS_PIN                        P1_14  // ETH
+  ///#define E0_CS_PIN                        P1_14  // ETH
 #endif
 
 #define E1_STEP_PIN                        P2_08  // (36)
 #define E1_DIR_PIN                         P2_13  // (34)
 #define E1_ENABLE_PIN                      P4_29  // (30)
 #ifndef E1_CS_PIN
-  #define E1_CS_PIN                        -1
+  ///#define E1_CS_PIN                        -1
 #endif
 
-//
+///removed SW SPI
 // Software SPI pins for TMC2130 stepper drivers
-//
+/*
 #if ENABLED(TMC_USE_SW_SPI)
   #ifndef TMC_SW_MOSI
     #define TMC_SW_MOSI                    P1_00  // ETH
@@ -118,7 +123,7 @@
   #ifndef TMC_SW_SCK
     #define TMC_SW_SCK                     P1_09  // ETH
   #endif
-#endif
+#endif */
 
 #if HAS_TMC_UART
   /**
@@ -173,12 +178,12 @@
 //
 #define TEMP_0_PIN                      P0_23_A0  // A0 (T0) - (67) - TEMP_0_PIN
 #define TEMP_BED_PIN                    P0_24_A1  // A1 (T1) - (68) - TEMP_BED_PIN
-#define TEMP_1_PIN                      P0_25_A2  // A2 (T2) - (69) - TEMP_1_PIN
-#define TEMP_2_PIN                      P0_26_A3  // A3 - (63) - J5-3 & AUX-2
-#define TEMP_3_PIN                      P1_30_A4  // A4 - (37) - BUZZER_PIN
+//#define TEMP_1_PIN                      P0_25_A2  // A2 (T2) - (69) - TEMP_1_PIN
+//#define TEMP_2_PIN                      P0_26_A3  // A3 - (63) - J5-3 & AUX-2
+//#define TEMP_3_PIN                      P1_30_A4  // A4 - (37) - BUZZER_PIN
 //#define TEMP_4_PIN                    P1_31_A5  // A5 - (49) - SD_DETECT_PIN
 //#define ??                  P0_03_A6   // A6 - ( 0)  - RXD0 - J4-4 & AUX-1
-#define FILWIDTH_PIN                    P0_02_A7  // A7 - ( 1)  - TXD0 - J4-5 & AUX-1
+//#define FILWIDTH_PIN                    P0_02_A7  // A7 - ( 1)  - TXD0 - J4-5 & AUX-1
 
 //
 // Augmentation for auto-assigning RAMPS plugs
@@ -214,6 +219,8 @@
 #endif
 
 #define HEATER_0_PIN               RAMPS_D10_PIN
+///#define HEATER_1_PIN      P0_16                     //added for chamber temperature
+///#define HEATER_CHAMBER_PIN     P0_16              //added for chamber temperature
 
 #if ENABLED(IS_RAMPS_EFB)                         // Hotend, Fan, Bed
   #define HEATER_BED_PIN            RAMPS_D8_PIN
@@ -255,7 +262,7 @@
   #define FIL_RUNOUT_PIN                   P1_19  // (5)
 #endif
 
-#define PS_ON_PIN                          P2_12  // (12)
+//#define PS_ON_PIN                          P2_12  // (12)
 
 #if !defined(MAX6675_SS_PIN) && DISABLED(USE_ZMAX_PLUG)
   #define MAX6675_SS_PIN                   P1_28
@@ -332,6 +339,11 @@
   #define LCD_PINS_ENABLE                  P0_18  // J3-10 & AUX-3 (SID, MOSI)
   #define LCD_PINS_D4                      P2_06  // J3-8 & AUX-3 (SCK, CLK)
 
+  ///added LCD Pins
+  #define LCD_PINS_RS      P0_15   // J3-9 & AUX-4 (CS)
+  #define LCD_PINS_ENABLE  P0_18   // J3-10 & AUX-3 (SID, MOSI)
+  #define LCD_PINS_D4      P2_06   // J3-8 & AUX-3 (SCK, CLK)
+
 #elif HAS_SPI_LCD
 
   //#define SCK_PIN                        P0_15  // (52)  system defined J3-9 & AUX-3
@@ -339,6 +351,7 @@
   //#define MOSI_PIN                       P0_18  // (51)  system defined J3-10 & AUX-3
   //#define SS_PIN                         P1_23  // (53)  system defined J3-5 & AUX-3 (Sometimes called SDSS)
 
+  /*
   #if ENABLED(FYSETC_MINI_12864)
     #define BEEPER_PIN                     P1_01
     #define BTN_ENC                        P1_04
@@ -346,14 +359,19 @@
     #define BEEPER_PIN                     P1_30  // (37) not 5V tolerant
     #define BTN_ENC                        P2_11  // (35) J3-3 & AUX-4
   #endif
-
+  /*
+  
+  ///added
+  #define BEEPER_PIN                     P1_01
+  #define BTN_ENC                        P1_04
+	
   #define BTN_EN1                          P3_26  // (31) J3-2 & AUX-4
   #define BTN_EN2                          P3_25  // (33) J3-4 & AUX-4
 
   #define SD_DETECT_PIN                    P1_31  // (49) J3-1 & AUX-3 (NOT 5V tolerant)
   #define KILL_PIN                         P1_22  // (41) J5-4 & AUX-4
-  #define LCD_PINS_RS                      P0_16  // (16) J3-7 & AUX-4
-  #define LCD_SDSS                         P0_16  // (16) J3-7 & AUX-4
+  ///#define LCD_PINS_RS                      P0_16  // (16) J3-7 & AUX-4
+  ///#define LCD_SDSS                         P0_16  // (16) J3-7 & AUX-4
 
   #if ENABLED(NEWPANEL)
     #if ENABLED(REPRAPWORLD_KEYPAD)
@@ -390,7 +408,7 @@
       //#define FORCE_SOFT_SPI                    // Use this if default of hardware SPI causes display problems
                                                   //   results in LCD soft SPI mode 3, SD soft SPI mode 0
 
-      #define LCD_RESET_PIN                P0_16  // Must be high or open for LCD to operate normally.
+      ///#define LCD_RESET_PIN                P0_16  // Must be high or open for LCD to operate normally.
 
       #if EITHER(FYSETC_MINI_12864_1_2, FYSETC_MINI_12864_2_0)
         #ifndef RGB_LED_R_PIN
@@ -410,10 +428,13 @@
       #define DOGLCD_A0                    P2_06  // (59) J3-8 & AUX-2
     #endif
 
-    #define LCD_BACKLIGHT_PIN              P0_16  //(16) J3-7 & AUX-4 - only used on DOGLCD controllers
-    #define LCD_PINS_ENABLE                P0_18  // (51) (MOSI) J3-10 & AUX-3
-    #define LCD_PINS_D4                    P0_15  // (52) (SCK)  J3-9 & AUX-3
-    #if ENABLED(ULTIPANEL)
+    ///#define LCD_BACKLIGHT_PIN              P0_16  //(16) J3-7 & AUX-4 - only used on DOGLCD controllers
+    #define LCD_BACKLIGHT_PIN              P2_11  
+	///#define LCD_PINS_ENABLE                P0_18  // (51) (MOSI) J3-10 & AUX-3
+    #define LCD_PINS_ENABLE                -1
+	///#define LCD_PINS_D4                    P0_15  // (52) (SCK)  J3-9 & AUX-3
+    #define LCD_PINS_D4                    -1
+	#if ENABLED(ULTIPANEL)
       #define LCD_PINS_D5                  P1_17  // (71) ENET_MDIO
       #define LCD_PINS_D6                  P1_14  // (73) ENET_RX_ER
       #define LCD_PINS_D7                  P1_10  // (75) ENET_RXD1
