@@ -1007,7 +1007,7 @@
 //#define LCD_SHOW_E_TOTAL
 
 #if ENABLED(SHOW_BOOTSCREEN)
-  #define BOOTSCREEN_TIMEOUT 4000        // (ms) Total Duration to display the boot screen(s)
+  #define BOOTSCREEN_TIMEOUT 2000        // (ms) Total Duration to display the boot screen(s)
 #endif
 
 #if HAS_GRAPHICAL_LCD && EITHER(SDSUPPORT, LCD_SET_PROGRESS_MANUALLY)
@@ -2183,9 +2183,9 @@
    * but you can override or define them here.
    */
   #define TMC_USE_SW_SPI
-  #define TMC_SW_MOSI       P0_18
-  #define TMC_SW_MISO       P0_17
-  #define TMC_SW_SCK        P0_15
+  //#define TMC_SW_MOSI       P0_18
+  //#define TMC_SW_MISO       P0_17
+  //#define TMC_SW_SCK        P0_15
 
   /**
    * Four TMC2209 drivers can use the same HW/SW serial port with hardware configured addresses.
